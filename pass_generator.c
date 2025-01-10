@@ -37,9 +37,7 @@ void passGenerate(int size){
 	for(int i=0; i<sizeof(finalPass) / sizeof(finalPass[0]); i++){
 		printf("%c",finalPass[i]);
 	}
-	/*int count = 0;
-	for(int i=0;i<sizeof(specialChars) / sizeof(specialChars[0]);i++) count++;
-	printf("Number of symbols: %d\n",count);*/
+	
 	
 }	
 
