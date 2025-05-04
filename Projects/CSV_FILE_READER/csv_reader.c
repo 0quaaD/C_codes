@@ -58,4 +58,27 @@ int load_file(const char* filename, float X[200][9] , float y[200] )
     return row;
 }
 
+void headers_name(const char* filename){
+    FILE* fp = fopen(filename, "r");
+    if(!fp) return -1;
+
+    char line[LINE_LEN], headers[COLS][FIELD_LEN];
+
+    if(fgets(line, sizeof(line), fp)){
+        line[strcspn(line, "\r\n")] = 0;
+        char* token = strtok(line, ",");
+        int col = 0;
+        while(token != NULL && col < COLS){
+            strncpy(headers[col], token, FIELD_LEN-1);
+            token = strtok(NULL, ",");
+            col++;
+        }
+        for(int i=0;i< col && headers[i][0];++i){
+            printf("\t%s\t",headers[i]);
+        }
+        printf("\n");
+    }
+    fclose(fp);
+}
+
 
