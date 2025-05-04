@@ -32,7 +32,7 @@ int count_cols(const char* filename)
     return count;
 }
 
-int load_file(const char* filename, float X[200][9] , float y[200] )
+int load_file(const char* filename, float X[ROWS][COLS-1] , float y[ROWS] )
 {
     FILE* fp = fopen(filename, "r");
     if(!fp){
@@ -60,7 +60,7 @@ int load_file(const char* filename, float X[200][9] , float y[200] )
 
 void headers_name(const char* filename){
     FILE* fp = fopen(filename, "r");
-    if(!fp) return -1;
+    if(!fp) return;
 
     char line[LINE_LEN], headers[COLS][FIELD_LEN];
 

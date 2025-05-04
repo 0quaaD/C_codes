@@ -3,15 +3,16 @@
 #include "csv_reader.h"
 #include <time.h>
 
+const char* file_path = "The CSV FILE PATH";
 int main(void)
 {
     float X[ROWS][COLS-1], y[ROWS];
     printf("\n========== THE CSV FILE CONTENTS ==========\n\n");
     printf("index");
     clock_t start = clock();
-    headers_name("./classification_data.csv");
+    headers_name(file_path);
     printf("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
-    int row_ = load_file("./classification_data.csv",X,y);
+    int row_ = load_file(file_path,X,y);
     if(row_ < 1) return -1;
     for(int i=0;i<row_;++i){
         printf("%d\t",i+1);
