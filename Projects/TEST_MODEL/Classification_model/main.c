@@ -8,7 +8,7 @@
 
 #define NUM_SAMPLES 5
 #define NUM_CLASSES 2
-void cleanMem(float** data_X, float* data_y, float** y_encoded, float** X_encoded){
+void cleanMem(float** data_X, float* data_y, float** y_encoded, float** X_encoded,float* w, float** X_scaled){
     for(int i=0;i<ROWS;i++) free(data_X[i]);
     free(data_X);
 
@@ -19,6 +19,11 @@ void cleanMem(float** data_X, float* data_y, float** y_encoded, float** X_encode
 
     for(int i=0;i<ROWS;i++) free(X_encoded[i]);
     free(X_encoded);
+    
+    free(w);
+
+    for(int i=0;i<NUM_SAMPLES;i++) free(X_scaled[i]);
+    free(X_scaled);
 
 }
 
@@ -36,7 +41,7 @@ float rand_float_gen(void){
 }
 
 float sigmoid_f(float x){
-    return 1.0f / (1.0f + exp(-x));
+    return 1.0f / (1.0f + expf(-x));
 }
 
 float** encode_y(float* y){
@@ -69,60 +74,94 @@ float** encode_X(float** X){
 }
 
 
-void weights_and_bias(void){
+float* weights_(void){
     float* weights = (float*)malloc(NUM_SAMPLES * sizeof(float));
-    float bias = ((float)rand() / (float)RAND_MAX) * 2.0f - 1.0f;
     for(int i=0;i< NUM_SAMPLES; i++){
         weights[i] = ((float)rand() / (float)RAND_MAX) * 2.0f - 1.0f;
     }
-    for(int i=0;i<NUM_SAMPLES;i++){
-        printf("w[%d] = %.4f\n",i,weights[i]);
-    }
-    printf("b = %.4f\n",bias);
-
-    printf("\n\n");
-       free(weights);
+    return weights;
 }
-int main(void)
-{
+
+float* compute_z(float** X, float* w, float b){
+    float* z = (float*)malloc(NUM_SAMPLES * sizeof(float));
+    for(int i=0;i<NUM_SAMPLES;i++){
+        z[i] = 0.0f;
+        for(int j=0;j<NUM_FEATURES;j++){
+            z[i] += (X[i][j] * w[j]);
+        }
+        z[i] += b;
+    }
+    return z;
+    
+}
+float* preds(float* z){
+   
+    float* pred = (float*)malloc(NUM_SAMPLES * sizeof(float));
+    for(int i=0;i<NUM_SAMPLES;i++){
+        pred[i] = sigmoid_f(z[i]);
+    }
+    return pred;
+}
+
+float** scaling(float** X){
+    float min = X[0][0];
+    for(int i=0;i<NUM_SAMPLES;i++){
+        
+        if(X[i][0] < min){
+            float temp = X[i][0];
+            // temp , min
+            X[i][0] = min;
+            min = temp;
+        }
+    }
+    
+    float max = X[0][0];
+    for(int i=0;i<NUM_SAMPLES;i++){
+        if(X[i][0] > max){
+            float temp = X[i][0];
+            X[i][0] = max;
+            max = temp;
+        }
+    }
+
+    float** X_scaled =  (float**)malloc(NUM_SAMPLES * sizeof(float*));
+    for(int i=0;i<NUM_SAMPLES;i++) X_scaled[i] = (float*)malloc(NUM_SAMPLES * sizeof(float));
+    for(int i=0;i<NUM_SAMPLES;i++){
+        *(X_scaled[i]) = ((X[i][0] - min)/(max-min));
+    }
+
+    for(int i=0;i<NUM_SAMPLES;i++){
+        X[i][0] = *(X_scaled[i]);
+    }
+
+   
+    return X_scaled;
+}
+
+void cost(float** X, float* y, float* pred){
+    printf(" ");
+}
+int main(void){
     srand(time(NULL));
-    weights_and_bias(); 
+   
+    float* w = weights_();
+    float bias = ((float)rand() / (float)RAND_MAX) * 2.0f - 1.0f;
+
     float* data_y = data_split_y(df);
     float** data_X = data_split_X(df);
 
+
     float** X_encoded = encode_X(data_X);
     float** y_encoded = encode_y(data_y);
+    float** X_scaled = scaling(X_encoded);
+    float* z = compute_z(X_scaled, w, bias);
 
-    printf("Raw X data:\n");
-    for(int i=0;i<ROWS;i++){
-        for(int j=0;j<COLS;++j){
-            printf("%.1f ",data_X[i][j]);
-        }
-        printf("\n");
-    }
-    printf("\n\nEncoded X data:\n");
-
-    for(int i=0; i <NUM_SAMPLES;++i){
-        for(int j=0;j<FINAL_FEATURES;j++){
-            printf("%.1f ",X_encoded[i][j]);
-        }
-        printf("\n");
-    }
-   
-    printf("\nRaw y data:\n");
-    for(int i=0;i<ROWS;i++){
-        printf("%.1f\n",data_y[i]);
-    }
-
-    printf("\nEndoded y data:\n");
+    float* pred = preds(z);
+    printf("Predictions:\n");
     for(int i=0;i<NUM_SAMPLES;i++){
-        for(int j=0;j<NUM_CLASSES;j++){
-            printf("%.1f ",y_encoded[i][j]);
-        }
-        printf("\n");
+        printf("pred[%d] --> %.1f\n",i,pred[i]);
     }
-
-    //data_split(df);
-    cleanMem(data_X, data_y, y_encoded, X_encoded);
+    
+    cleanMem(data_X, data_y, y_encoded, X_encoded,w,X_scaled);
     return 0;
 }
