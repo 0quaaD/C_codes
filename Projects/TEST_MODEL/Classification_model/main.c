@@ -8,10 +8,6 @@
 
 #define NUM_SAMPLES 5
 #define NUM_CLASSES 2
-#define ORIGINAL_FEATURES 2
-#define CAT_FEATURES 2
-#define FINAL_FEATURES (1 + CAT_FEATURES)
-
 void cleanMem(float** data_X, float* data_y, float** y_encoded, float** X_encoded){
     for(int i=0;i<ROWS;i++) free(data_X[i]);
     free(data_X);
@@ -64,7 +60,7 @@ float** encode_X(float** X){
         one_hot_x[i][0] = X[i][0];
 
         int cat = (int)X[i][1];
-        for(int j=0;j<CAT_FEATURES;++j){
+        for(int j=0;j<CAT_FEATURES;++j){ 
             one_hot_x[i][j+1] = (j==cat) ? 1.0f : 0.0f;
         }
     }
@@ -72,15 +68,25 @@ float** encode_X(float** X){
 
 }
 
+
+void weights_and_bias(void){
+    float* weights = (float*)malloc(NUM_SAMPLES * sizeof(float));
+    float bias = ((float)rand() / (float)RAND_MAX) * 2.0f - 1.0f;
+    for(int i=0;i< NUM_SAMPLES; i++){
+        weights[i] = ((float)rand() / (float)RAND_MAX) * 2.0f - 1.0f;
+    }
+    for(int i=0;i<NUM_SAMPLES;i++){
+        printf("w[%d] = %.4f\n",i,weights[i]);
+    }
+    printf("b = %.4f\n",bias);
+
+    printf("\n\n");
+       free(weights);
+}
 int main(void)
 {
     srand(time(NULL));
-    float w1 = rand_float_gen() * 2.0f - 1.0f;
-    float w2 = rand_float_gen() * 2.0f - 1.0f;
-    float b = rand_float_gen() * 2.0f - 1.0f;
-    printf("w1 = %.4f, w2 = %.4f, b = %.4f\n\n\n",w1,w2,b);
-
-    
+    weights_and_bias(); 
     float* data_y = data_split_y(df);
     float** data_X = data_split_X(df);
 

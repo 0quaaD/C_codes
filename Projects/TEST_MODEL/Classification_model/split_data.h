@@ -5,6 +5,10 @@
 #define COLS 3
 #define NUM_FEATURES COLS-1
 
+#define ORIGINAL_FEATURES 2
+#define CAT_FEATURES 2
+#define FINAL_FEATURES (1 + CAT_FEATURES)
+
 void data_split(float data[ROWS][COLS]);
 float** data_split_X(float data[ROWS][COLS]);
 float* data_split_y(float data[ROWS][COLS]);
