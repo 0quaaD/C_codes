@@ -138,8 +138,31 @@ float** scaling(float** X){
     return X_scaled;
 }
 
-void cost(float** X, float* y, float* pred){
-    printf(" ");
+float cost(float** y, float* pred){
+    float res = 0.0f;
+    for(int i=0;i<NUM_SAMPLES;i++){
+        res += (*(y[i]) * logf(pred[i])+(1 - *(y[i])) * logf(1 - pred[i]));
+    }
+    res /= -NUM_SAMPLES;
+    return res;
+
+}
+
+void gradient_descent(float* w, float** X, float** y, float* p, float* dw_out, float* db_out){
+    float dw = 0.0f, db = 0.0f;
+    for(int i=0;i<NUM_SAMPLES;i++){
+        float error = (p[i] - *(y[i]));
+        for(int j=0;j<FINAL_FEATURES;j++){
+            dw_out[j] += error * X[i][j]; 
+        }
+        db += error;
+    }
+    for(int i=0;i<FINAL_FEATURES;i++){
+        dw_out[i] /= NUM_SAMPLES;
+    }
+    *db_out = db / NUM_SAMPLES;
+        
+    
 }
 int main(void){
     srand(time(NULL));
@@ -154,14 +177,43 @@ int main(void){
     float** X_encoded = encode_X(data_X);
     float** y_encoded = encode_y(data_y);
     float** X_scaled = scaling(X_encoded);
-    float* z = compute_z(X_scaled, w, bias);
-
-    float* pred = preds(z);
-    printf("Predictions:\n");
-    for(int i=0;i<NUM_SAMPLES;i++){
-        printf("pred[%d] --> %.1f\n",i,pred[i]);
-    }
     
+
+    float dw[FINAL_FEATURES] = {0};
+    float db = 0.0f;
+    float lr = 0.01f;
+    
+    for(int i=0;i<10000000;i++){
+        float* z = compute_z(X_scaled, w, bias);
+        float* pred = preds(z);
+        float loss = cost(y_encoded, pred);
+        gradient_descent(w,X_scaled,y_encoded,pred,dw,&db);
+        for(int i=0;i<FINAL_FEATURES;i++){
+            w[i] -= lr * dw[i]; 
+        }
+        bias -= lr * db;
+       
+    }
+    float* z = compute_z(X_scaled, w, bias);
+    float* pred = preds(z);
+    float loss = cost(y_encoded, pred);
+    printf("Loss = %.4f\n",loss);
+    for(int i=0;i<NUM_SAMPLES;i++){
+        printf("preds[%d] --> %.4f\n",i,pred[i]);
+    }
+    int correct = 0;
+    for(int i=0;i<NUM_SAMPLES;i++){
+        int pred_cls = (pred[i] >= 0.5) ? 1 : 0;
+        int act_cls = (int)(*(y_encoded[i]));
+        if(pred_cls == act_cls){
+            correct++;
+        }
+
+    }
+    float acc = (float)correct / NUM_SAMPLES;
+    printf("Accuracy : %.2f%%\n",100 * acc);
+    for(int i=0;i<NUM_SAMPLES;i++) printf("%.4f\n",*(y_encoded[i]));
+
     cleanMem(data_X, data_y, y_encoded, X_encoded,w,X_scaled);
     return 0;
 }
