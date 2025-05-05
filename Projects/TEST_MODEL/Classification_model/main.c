@@ -10,28 +10,28 @@
 #define ROWS 100
 #define NUM_CLASSES 2
 void cleanMem(float** data_X, float* data_y, float** y_encoded, float** X_encoded,float* w, float** X_scaled, float** train_X, float* train_y, float** test_X, float* test_y){
-    for(int i=0;i<ROWS;i++) free(data_X[i]);
+    free_2d_arr(data_X, ROWS);
     free(data_X);
 
     free(data_y);
 
-    for(int i=0;i<ROWS;i++) free(y_encoded[i]);
+    free_2d_arr(y_encoded, ROWS);
     free(y_encoded);
 
-    for(int i=0;i<ROWS;i++) free(X_encoded[i]);
+    free_2d_arr(X_encoded, ROWS);
     free(X_encoded);
     
     free(w);
 
-    for(int i=0;i<ROWS;i++) free(X_scaled[i]);
+    free_2d_arr(X_scaled, ROWS);
     free(X_scaled);
 
-    for(int i=0;i<TRAIN_SIZE;i++) free(train_X[i]);
+    free_2d_arr(train_X, TRAIN_SIZE);
     free(train_X);
 
     free(train_y);
 
-    for(int i=0;i<TEST_SIZE;i++) free(test_X[i]);
+    free_2d_arr(test_X, TEST_SIZE);
     free(test_X);
 
     free(test_y);
@@ -222,7 +222,7 @@ void gradient_descent(float* w, float** X, float** y, float* p, float* dw_out, f
     *db_out =0.0f;
 
     for(int i=0;i<ROWS;i++){
-        float error = (p[i] - y[i][2]);
+        float error = (p[i] - y[i][0]);
         for(int j=0;j<FINAL_FEATURES;j++){
             dw_out[j] += error * X[i][j]; 
         }
@@ -240,17 +240,25 @@ int main(void){
    
     float* w = weights_();
     float bias = ((float)rand() / (float)RAND_MAX) * 2.0f - 1.0f;
-
+    checkNull(df);
     float* data_y = data_split_y(df);
     float** data_X = data_split_X(df);
+
+
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            printf("data_X[%d][%d] = %f\n", i, j, data_X[i][j]);
+        }
+        printf("data_y[%d] = %f\n", i, data_y[i]);
+    }
 
     float** train_X = train_X_data(df);
     float** test_X = test_X_data(df);
     float* train_y = train_y_data(df);
     float* test_y = test_y_data(df);
 
-    float** X_encoded = encode_X(train_X);
-    float** y_encoded = encode_y(train_y);
+    float** X_encoded = encode_X(data_X);
+    float** y_encoded = encode_y(data_y);
 
     float** X_scaled = scaling(X_encoded);
     
@@ -259,7 +267,9 @@ int main(void){
     float db = 0.0f;
     float lr = 0.01f;
     
-    for(int i=0;i<10000000;i++){
+    int iterations = 1000;
+    for(int i=0;i<iterations;i++){
+        if(i % 100 == 0) printf("Iteration: %dth iteration\n",i);
         float* z = compute_z(X_scaled, w, bias);
         float* pred = preds(z);
         float loss = cost(y_encoded, pred);
@@ -289,8 +299,9 @@ int main(void){
     float acc = (float)correct / ROWS;
     printf("Accuracy : %.2f%%\n",100 * acc);
     for(int i=0;i<ROWS;i++) printf("%.4f\n",*(y_encoded[i]));
-    checkNull(df);
-    free_model_mem(z,pred);
+    
+    free(z); 
+    free(pred);
     cleanMem(data_X, data_y, y_encoded, X_encoded,w,X_scaled,train_X,train_y,test_X,test_y);
     return 0;
 }
