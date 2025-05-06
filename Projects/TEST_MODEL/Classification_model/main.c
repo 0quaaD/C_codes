@@ -212,23 +212,24 @@ int main(void){
 
     float test_X[TEST_SIZE][FEATURES], test_y[TEST_SIZE];
     test_data(data, test_X, test_y);
-    /*printf("\nTest X data:\n");
+    printf("\nTest X data:\n");
     for(int i=0;i<TEST_SIZE;i++){
         for(int j=0;j<FEATURES;j++) printf("%.1f ",test_X[i][j]);
         printf("\n");
-    }
+    }/*
     printf("\nTest y data:\n");
     for(int i=0;i<TEST_SIZE;i++){
         printf("%.1f\n",test_y[i]);
     }*/
     
     float test_y_encode[TEST_SIZE][FEATURES];
-    test_y_encoded(test_y, test_y_encode);
+    test_y_encoded(test_y, test_y_encode); puts("");
     /*printf("Test_y encoded:\n");
     for(int i=0;i<TEST_SIZE;i++){
         for(int j=0;j<FEATURES;j++) printf("%.1f ",test_y_encode[i][j]);
         printf("\n");
     }*/
-    
+    float test_X_sc[TEST_SIZE];
+    test_X_scaled(test_X,test_X_sc);
     return 0;
 }
