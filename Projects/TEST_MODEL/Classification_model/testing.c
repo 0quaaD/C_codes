@@ -41,3 +41,24 @@ void test_X_scaled(float test_X[TEST_SIZE][FEATURES], float test_X_sc[TEST_SIZE]
         }
     }
 }
+
+void test_X_encoded(float test_X[TEST_SIZE][FEATURES], float test_X_encode[TEST_SIZE][FEATURES]){
+    for(int i=0;i<TEST_SIZE;i++){
+        int cat = (int)test_X[i][1];
+        test_X_encode[i][0] = 0.0f;
+        test_X_encode[i][1] = 0.0f;
+        if(cat >= 0.0f && cat < CAT_FEATURES) test_X_encode[i][cat] = 1.0f;
+        else printf("Unexpected value appeared at row %d : value --> %.1f\n",i,test_X[i][1]);
+    }
+
+}
+
+void test_X_final(float test_X_sc[TEST_SIZE], float test_X_encode[TEST_SIZE][FEATURES], float test_X_final_[TEST_SIZE][FINAL_FEATURES]){
+    for(int i=0;i<TEST_SIZE;i++){
+        test_X_final_[i][0] = test_X_sc[i]; 
+        for(int j=0;j<FEATURES;j++){
+            test_X_final_[i][j+1] = test_X_encode[i][j];
+
+        }
+    }
+}

@@ -12,5 +12,9 @@
 
 void test_data(float data[ROWS][COLS], float test_X[TEST_SIZE][FEATURES], float test_y[TEST_SIZE]);
 void test_y_encoded(float test_y[TEST_SIZE], float test_y_encode[TEST_SIZE][FEATURES]);
+
+// encode , scale and concatenate test_X
 void test_X_scaled(float test_X[TEST_SIZE][FEATURES], float test_X_sc[TEST_SIZE]);
+void test_X_encoded(float test_X[TEST_SIZE][FEATURES], float test_X_encode[TEST_SIZE][FEATURES]);
+void test_X_final(float test_X_sc[TEST_SIZE], float test_X_encode[TEST_SIZE][FEATURES], float test_X_final_[TEST_SIZE][FINAL_FEATURES]);
 #endif

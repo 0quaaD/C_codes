@@ -212,11 +212,11 @@ int main(void){
 
     float test_X[TEST_SIZE][FEATURES], test_y[TEST_SIZE];
     test_data(data, test_X, test_y);
-    printf("\nTest X data:\n");
+    /*printf("\nTest X data:\n");
     for(int i=0;i<TEST_SIZE;i++){
         for(int j=0;j<FEATURES;j++) printf("%.1f ",test_X[i][j]);
         printf("\n");
-    }/*
+    }
     printf("\nTest y data:\n");
     for(int i=0;i<TEST_SIZE;i++){
         printf("%.1f\n",test_y[i]);
@@ -231,5 +231,24 @@ int main(void){
     }*/
     float test_X_sc[TEST_SIZE];
     test_X_scaled(test_X,test_X_sc);
+    printf("\nTEST_X SCALED:\n");
+    for(int i=0;i<TEST_SIZE;i++) printf("%.1f\n",test_X_sc[i]);
+    
+
+    float test_X_encode[TEST_SIZE][FEATURES];
+    test_X_encoded(test_X,test_X_encode);
+    printf("\nTEST_X ENCODED\n");
+    for(int i=0;i<TEST_SIZE;i++){
+        for(int j=0;j<FEATURES;j++) printf("%.1f ",test_X_encode[i][j]);
+        printf("\n");
+    }
+    
+    
+    float test_X_final_[TEST_SIZE][FINAL_FEATURES];
+    printf("\nSCALED AND ENCODED TEST_X:\n");
+    for(int i=0;i<TEST_SIZE;i++){
+        for(int j=0;j<FINAL_FEATURES;j++) printf("%.1f ",test_X_final_[i][j]);
+        printf("\n");
+    }
     return 0;
 }
