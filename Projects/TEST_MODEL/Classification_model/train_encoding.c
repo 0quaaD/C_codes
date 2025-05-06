@@ -189,6 +189,8 @@ int main(void){
 
     scaled(train_X, one_hot_X_, train_X_final, scaled_X);
     checkNull(z,pred);
+
+    // training process
     int iter = (int)1e+5;
     for(int i=0;i<iter;i++){
         
