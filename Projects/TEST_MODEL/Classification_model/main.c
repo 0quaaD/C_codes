@@ -10,10 +10,13 @@
 
 #define CAT_FEATURES_Y 2
 #define FINAL_FEATURES_Y 1+CAT_FEATURES_Y
+
 #define ROWS 100
 #define COLS 3
+
 #define TRAIN_SIZE 80
 #define TEST_SIZE 20
+
 float data[][3] = {
     {140.0f, 0.0f, 0.0f}, {130.0f, 0.0f, 0.0f}, {150.0f, 1.0f, 1.0f}, {170.0f, 1.0f, 1.0f}, 
     {120.0f, 0.0f, 0.0f}, {135.0f, 0.0f, 0.0f}, {160.0f, 1.0f, 1.0f}, {180.0f, 1.0f, 1.0f}, 
@@ -209,7 +212,7 @@ int main(void){
 
     float test_X[TEST_SIZE][FEATURES], test_y[TEST_SIZE];
     test_data(data, test_X, test_y);
-    printf("\nTest X data:\n");
+    /*printf("\nTest X data:\n");
     for(int i=0;i<TEST_SIZE;i++){
         for(int j=0;j<FEATURES;j++) printf("%.1f ",test_X[i][j]);
         printf("\n");
@@ -217,6 +220,15 @@ int main(void){
     printf("\nTest y data:\n");
     for(int i=0;i<TEST_SIZE;i++){
         printf("%.1f\n",test_y[i]);
-    }
+    }*/
+    
+    float test_y_encode[TEST_SIZE][FEATURES];
+    test_y_encoded(test_y, test_y_encode);
+    /*printf("Test_y encoded:\n");
+    for(int i=0;i<TEST_SIZE;i++){
+        for(int j=0;j<FEATURES;j++) printf("%.1f ",test_y_encode[i][j]);
+        printf("\n");
+    }*/
+    
     return 0;
 }
