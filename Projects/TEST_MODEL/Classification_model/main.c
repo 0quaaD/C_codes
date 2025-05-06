@@ -4,6 +4,7 @@
 #include <time.h>
 #include "training.h"
 #include "testing.h"
+#include "model_functions.h"
 
 #define CAT_FEATURES_X 2
 #define FINAL_FEATURES_X  1+CAT_FEATURES_X
@@ -224,31 +225,46 @@ int main(void){
     
     float test_y_encode[TEST_SIZE][FEATURES];
     test_y_encoded(test_y, test_y_encode); puts("");
-    /*printf("Test_y encoded:\n");
+    /*printf("\nTest_y encoded:\n");
     for(int i=0;i<TEST_SIZE;i++){
         for(int j=0;j<FEATURES;j++) printf("%.1f ",test_y_encode[i][j]);
         printf("\n");
     }*/
+
     float test_X_sc[TEST_SIZE];
     test_X_scaled(test_X,test_X_sc);
-    printf("\nTEST_X SCALED:\n");
-    for(int i=0;i<TEST_SIZE;i++) printf("%.1f\n",test_X_sc[i]);
+    //printf("\nTEST_X SCALED:\n");
+    //for(int i=0;i<TEST_SIZE;i++) printf("%.1f\n",test_X_sc[i]);
     
 
     float test_X_encode[TEST_SIZE][FEATURES];
     test_X_encoded(test_X,test_X_encode);
-    printf("\nTEST_X ENCODED\n");
+    /*printf("\nTEST_X ENCODED\n");
     for(int i=0;i<TEST_SIZE;i++){
         for(int j=0;j<FEATURES;j++) printf("%.1f ",test_X_encode[i][j]);
         printf("\n");
-    }
+    }*/
     
     
     float test_X_final_[TEST_SIZE][FINAL_FEATURES];
-    printf("\nSCALED AND ENCODED TEST_X:\n");
+    test_X_final(test_X_sc, test_X_encode, test_X_final_);
+    /*printf("\nSCALED AND ENCODED TEST_X:\n");
     for(int i=0;i<TEST_SIZE;i++){
         for(int j=0;j<FINAL_FEATURES;j++) printf("%.1f ",test_X_final_[i][j]);
         printf("\n");
-    }
+    }*/
+    
+    
+    float test_z[TEST_SIZE];
+    compute_z_test(test_X_final_,w, &b, test_z);
+    //printf("\nZ calculation for TEST_X data:\n");
+    //for(int i=0;i<TEST_SIZE;i++) printf(" %.1f\n",test_z[i]);
+    
+    float test_pred[TEST_SIZE];
+    test_preds(test_z, test_pred);
+    //printf("\nTEST PREDICTIONS:\n");
+    //for(int i=0;i<TEST_SIZE;i++) printf("%.1f\n",test_pred[i]);
+    float ac = acc_test(test_y_encode,test_pred);
+    printf("Accuracy for Test data: %.2f%%\n",ac * 100);
     return 0;
 }
