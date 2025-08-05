@@ -13,19 +13,19 @@ struct Messages {
         std::cout << "'lii' -> imperial to imperial length\n";
         std::cout << "'lmm' -> metric to metric length\n\n";
         
-		std::cout << "'wim' -> imperial length to metric weight\n";
+	std::cout << "'wim' -> imperial length to metric weight\n";
         std::cout << "'wmi' -> metric length to imperial weight\n";
         std::cout << "'wii' -> imperial to imperial weight\n";
         std::cout << "'wmm' -> metric to metric weight\n\n";
 		
-		std::cout << "'tim' -> imperial temperature (F) to metric temperature (C)\n";
+	std::cout << "'tim' -> imperial temperature (F) to metric temperature (C)\n";
         std::cout << "'tmi' -> metric temperature (C) to imperial temperature (F)\n";
         std::cout << "'tik' -> imperial  temperature (F) to kelvin temperature (K)\n";
         std::cout << "'tmk' -> metric temperature (C) to metric temperature\n";
-		std::cout << "'tki' -> kelvin temperature (K) to imperial temperature (F)\n";
-		std::cout << "'tkm' -> kelvin temperature (K) to metric temperature (C)\n\n";
+	std::cout << "'tki' -> kelvin temperature (K) to imperial temperature (F)\n";
+	std::cout << "'tkm' -> kelvin temperature (K) to metric temperature (C)\n\n";
         
-		std::cout << "Choice: ";
+	std::cout << "Choice: ";
     }
 
     static void showImperialLenUnits() {
@@ -38,30 +38,30 @@ struct Messages {
         std::cout << "Input (e.g. '5 cm' or '12 km'): ";
     }
 
-	static void showImperialWeightUnits(){
-		std::cout << "\nAvailable units: 'oz' (ounces), 'lb' (pound)\n";
-		std::cout << "Input (e.g. '5 oz' or '29 lb'): ";
-	}
+    static void showImperialWeightUnits(){
+	std::cout << "\nAvailable units: 'oz' (ounces), 'lb' (pound)\n";
+	std::cout << "Input (e.g. '5 oz' or '29 lb'): ";
+    }
 
-	static void showMetricWeightUnits(){
-		std::cout << "\nAvailable units: 'mg' (milligram), 'g' (gram), 'kg' (kilogram), 't' (tonnes)\n";
-		std::cout << "Input (e.g. '5 kg' or '29 t'): ";
-	}
+    static void showMetricWeightUnits(){
+	std::cout << "\nAvailable units: 'mg' (milligram), 'g' (gram), 'kg' (kilogram), 't' (tonnes)\n";
+	std::cout << "Input (e.g. '5 kg' or '29 t'): ";
+    }
 
-	static void showImperialTempUnits(){
-		std::cout << "\nAvailable unit: 'F'\n";
-		std::cout << "Input (e.g. '42.1 F' or '32 F'): ";
-	}
+    static void showImperialTempUnits(){
+	std::cout << "\nAvailable unit: 'F'\n";
+	std::cout << "Input (e.g. '42.1 F' or '32 F'): ";
+    }
 	
-	static void showMetricTempUnits(){
-		std::cout << "\nAvailable unit: 'C'\n";
-		std::cout << "Input (e.g. '42.1 C' or '32 C'): ";
-	}
+    static void showMetricTempUnits(){
+	std::cout << "\nAvailable unit: 'C'\n";
+	std::cout << "Input (e.g. '42.1 C' or '32 C'): ";
+    }
 	
-	static void showKelvinTempUnits(){
-		std::cout << "\nAvailable unit: 'K'\n";
-		std::cout << "Input (e.g. '421 K' or '322 K'): ";
-	}
+    static void showKelvinTempUnits(){
+	std::cout << "\nAvailable unit: 'K'\n";
+	std::cout << "Input (e.g. '421 K' or '322 K'): ";
+    }
 };
 
 class UnitConverter {
