@@ -377,98 +377,98 @@ public:
                     std::cout << "Invalid input format!\n";
                 }
             }
-			else if(choice == "wim"){
-				Messages::showImperialWeightUnits();
-				std::getline(std::cin, input);
-				if(UnitConverter::parseInput(input, value, unit)){
-					UnitConverter::convertImperialWeightToMetric(value, unit);
-				}
-				else{
-					std::cout << "Invalid imperial input format!\n";
-				}
-			}
-			else if(choice == "wmi"){
-				Messages::showMetricWeightUnits();
-				std::getline(std::cin, input);
-				if(UnitConverter::parseInput(input, value, unit)){
-					UnitConverter::convertMetricWeightToImperial(value, unit);
-				}
-				else{
-					std::cout << "Invalid metric input format!\n";
-				}
-			}
-			else if(choice == "wii"){
-				Messages::showImperialWeightUnits();
-				std::getline(std::cin, input);
-				if(UnitConverter::parseInput(input, value, unit)){
-					UnitConverter::convertImperialWeightToImperial(value, unit);
-				}
-				else {
-					std::cout << "Invalid imperial input format!\n";
-				}
-			}
-			else if(choice == "wmm"){
-				Messages::showMetricWeightUnits();
-				std::getline(std::cin, input);
-				if(UnitConverter::parseInput(input, value, unit)){
-					UnitConverter::convertMetricWeightToMetric(value, unit);
-				}
-				else{
-					std::cout << "Invalid metric input format!\n";
-				}
-			}
-			else if(choice == "tim"){
-				Messages::showImperialTempUnits();
-				std::getline(std::cin, input);
-				if(UnitConverter::parseInput(input, value, unit))
-					UnitConverter::convertImperialTempToMetric(value, unit);
-				else
-					std::cout << "Invalid imperial temperature input format!\n";
-			}
-			else if(choice == "tmi"){
-				Messages::showMetricTempUnits();
-				std::getline(std::cin, input);
-				if(UnitConverter::parseInput(input, value, unit))
-					UnitConverter::convertMetricTempToImperial(value, unit);
-				else
-					std::cout << "Invalid metric temperature input format!\n";
-			}
-			
-			else if(choice == "tik"){
-				Messages::showImperialTempUnits();
-				std::getline(std::cin, input);
-				if(UnitConverter::parseInput(input, value, unit))
-					UnitConverter::convertImperialTempToKelvin(value, unit);
-				else
-					std::cout << "Invalid imperial temperature input format!\n";
-			}
-			else if(choice == "tmk"){
-				Messages::showMetricTempUnits();
-				std::getline(std::cin, input);
-				if(UnitConverter::parseInput(input, value, unit))
-					UnitConverter::convertMetricTempToKelvin(value, unit);
-				else
-					std::cout << "Invalid metric temperature input format!\n";
-			}
-			else if(choice == "tki"){
-				Messages::showKelvinTempUnits();
-				std::getline(std::cin, input);
-				if(UnitConverter::parseInput(input, value, unit))
-					UnitConverter::convertKelvinTempToImperial(value, unit);
-				else
-					std::cout << "Invalid kelvin temperature input format!\n";
-			}
-			
-			else if(choice == "tkm"){
-				Messages::showKelvinTempUnits();
-				std::getline(std::cin, input);
-				if(UnitConverter::parseInput(input, value, unit))
-					UnitConverter::convertKelvinTempToMetric(value, unit);
-				else
-					std::cout << "Invalid kelvin temperature input format!\n";
-			}
+	    else if(choice == "wim"){
+		    Messages::showImperialWeightUnits();
+		    std::getline(std::cin, input);
+		    if(UnitConverter::parseInput(input, value, unit)){
+			    UnitConverter::convertImperialWeightToMetric(value, unit);
+		    }
+		    else{
+			    std::cout << "Invalid imperial input format!\n";
+		    }
+	    }
+	    else if(choice == "wmi"){
+		    Messages::showMetricWeightUnits();
+		    std::getline(std::cin, input);
+		    if(UnitConverter::parseInput(input, value, unit)){
+			    UnitConverter::convertMetricWeightToImperial(value, unit);
+		    }
+		    else{
+			    std::cout << "Invalid metric input format!\n";
+		    }
+	    }
+	    else if(choice == "wii"){
+		    Messages::showImperialWeightUnits();
+		    std::getline(std::cin, input);
+		    if(UnitConverter::parseInput(input, value, unit)){
+			    UnitConverter::convertImperialWeightToImperial(value, unit);
+		    }
+		    else {
+			    std::cout << "Invalid imperial input format!\n";
+		    }
+	    }
+	    else if(choice == "wmm"){
+		    Messages::showMetricWeightUnits();
+		    std::getline(std::cin, input);
+		    if(UnitConverter::parseInput(input, value, unit)){
+			    UnitConverter::convertMetricWeightToMetric(value, unit);
+		    }
+		    else{
+			    std::cout << "Invalid metric input format!\n";
+		    }
+	    }
+	    else if(choice == "tim"){
+	    	    Messages::showImperialTempUnits();
+		    std::getline(std::cin, input);
+		    if(UnitConverter::parseInput(input, value, unit))
+			    UnitConverter::convertImperialTempToMetric(value, unit);
+		    else
+			    std::cout << "Invalid imperial temperature input format!\n";
+	    }
+	    else if(choice == "tmi"){
+		    Messages::showMetricTempUnits();
+		    std::getline(std::cin, input);
+		    if(UnitConverter::parseInput(input, value, unit))
+			    UnitConverter::convertMetricTempToImperial(value, unit);
+		    else
+			    std::cout << "Invalid metric temperature input format!\n";
+	    }
+	
+	    else if(choice == "tik"){
+	  	    Messages::showImperialTempUnits();
+		    std::getline(std::cin, input);
+		    if(UnitConverter::parseInput(input, value, unit))
+			    UnitConverter::convertImperialTempToKelvin(value, unit);
+		    else
+			    std::cout << "Invalid imperial temperature input format!\n";
+	    }
+	    else if(choice == "tmk"){
+		    Messages::showMetricTempUnits();
+		    std::getline(std::cin, input);
+		    if(UnitConverter::parseInput(input, value, unit))
+			    UnitConverter::convertMetricTempToKelvin(value, unit);
+		    else
+			    std::cout << "Invalid metric temperature input format!\n";
+	    }
+	    else if(choice == "tki"){
+		    Messages::showKelvinTempUnits();
+		    std::getline(std::cin, input);
+		    if(UnitConverter::parseInput(input, value, unit))
+			    UnitConverter::convertKelvinTempToImperial(value, unit);
+		    else
+			    std::cout << "Invalid kelvin temperature input format!\n";
+	    }
+	
+	    else if(choice == "tkm"){
+		    Messages::showKelvinTempUnits();
+		    std::getline(std::cin, input);
+		    if(UnitConverter::parseInput(input, value, unit))
+			    UnitConverter::convertKelvinTempToMetric(value, unit);
+		    else
+			    std::cout << "Invalid kelvin temperature input format!\n";
+	    }
             else {
-                std::cout << "Invalid choice!\n";
+                    std::cout << "Invalid choice!\n";
             }
         }
         catch (const std::exception& e) {
